@@ -5,6 +5,9 @@ export class ErrorHandling extends Component {
     hasError: false,
     error: null,
   };
+
+  // Отлавливается внутри рендера (прямо в документе)
+
   componentDidCatch(error, errorInfo) {
     console.log(error);
     console.log(errorInfo);
@@ -22,8 +25,10 @@ export class ErrorHandling extends Component {
     return <Child />;
   }
 }
+
+
 export class Child extends Component {
-  componentDidMount() {
+  componentDidMount() { // но не будет выводиться в асинхронной операции (если например обернуть ее в setInterval)
     throw new Error('Случайная ошибка');
   }
   render() {

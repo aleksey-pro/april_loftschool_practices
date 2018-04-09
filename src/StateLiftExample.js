@@ -9,7 +9,8 @@ class LiftStateExample extends Component {
 
   handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value, // здесь мы сохраняем то что вводися в input
+      // через чтение полей с уникальными name
     });
   };
 
@@ -17,9 +18,11 @@ class LiftStateExample extends Component {
     return (
       <div>
         {Object.keys(this.state).map(
-          fieldName => (
+          (fieldName, index) => (
             <input
-              key={fieldName}
+              key={fieldName} // индефикатор при создании одинковых элементов компоненты
+              // напрмер при сортировке данных элементов их порядок изменится и index тоже именится
+              // и тогда key != index
               name={fieldName}
               value={this.state[fieldName]}
               placeholder={fieldName.toUpperCase()}

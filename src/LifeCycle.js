@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 
 export class LifeCycle extends Component {
-  static defaultProps = {};
+  static defaultProps = {}; // делаем если остутствие значений по умолчанию вызвоет ошибку
 
   state = {
-    creditCardInput: this.props.creditCard,
+    creditCardInput: this.props.creditCard, // можно использовать значения из пропсов
   };
   constructor(props) {
     super(props);
     console.log('constructor');
     console.log(props);
     this.div = React.createRef()
-    console.log(this.div)
+    console.log(this.div) // проверим есть ли ссылка на этот div
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(nextProps); // то что задали в props компоненты
+    console.log(prevState); // то что задавалось в объекте state
     console.log('getDerivedStateFromProps');
     return {
-      creditCardInput: nextProps.creditCard
+      creditCardInput: nextProps.creditCard // меняем props компоненты для отформатированного вида
         .replace(/(\d{0,4})/g, '$1 ')
         .trim(),
     };
@@ -66,6 +68,10 @@ export class LifeCycle extends Component {
     console.log('render');
     const { creditCardInput } = this.state;
     return <div ref={this.div}>{creditCardInput}</div>;
+    //ref={this.div} - передаем ссылку на отрендеренный div в componentDidMount + см строка 13.
+    // чтобы узнать его размеры
+    // можно и так ref ={divReference => this.div = divReference} но могут быть ошибки
+    //!!!!!!!!!!!! ref не передается в props !!!!!!!!!!!!!!!!!
   }
 }
 
